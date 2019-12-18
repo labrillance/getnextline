@@ -71,17 +71,3 @@ char *get_next_line(int fd)
     return buff;
 }
 
-int main(int ac, char **av)
-{
-    int fd = open(av[1], O_RDONLY);
-    char *s = get_next_line (fd);
-
-    while (s) {
-        my_putstr (s) ;
-        my_putchar ('\n') ;
-        free (s) ;
-        s = get_next_line (fd);
-    }
-    return (0) ;
-}
-
