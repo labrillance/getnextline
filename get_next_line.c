@@ -35,6 +35,8 @@ char *first_alloc(int fd, int i, char *string, int w)
 
     while (i != 0) {
         buff = malloc(sizeof(char) * READ_SIZE * w);
+        if (!malloc)
+            return NULL;
         i = read(fd, buff, i);
         buff[i] = 0;
         string = realloca(string, buff, w);
@@ -55,8 +57,12 @@ char *get_next_line(int fd)
     int x = 0;
     char *buff = NULL;
 
+    if (fd == -1)
+        return NULL;
     if (i != 0) {
         string = first_alloc(fd, i, string, w);
+        if (string == NULL)
+            return 84;
         i = 0;
     }
     for (int tmp = cmp; string[tmp] != 0 && string[tmp] != '\n'; tmp++, x++);
@@ -70,4 +76,3 @@ char *get_next_line(int fd)
     cmp++;
     return buff;
 }
-
