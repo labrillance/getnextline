@@ -10,6 +10,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+int my_strlen(char *a)
+{
+       int i = 0;
+    
+    while (a[i] != 0)
+        i++;
+    return i;
+}
 
 char *realloca(char *str, char *buff, int nb)
 {
@@ -52,7 +60,7 @@ char *first_alloc(int fd, int i, char *string, int w)
 
 char *get_next_line(int fd)
 {
-    static int i = 1;
+    static int i = READ_SIZE;
     static int w = 1;
     static int cmp = 0;
     static char *string = NULL;
@@ -64,7 +72,7 @@ char *get_next_line(int fd)
     if (i != 0) {
         string = first_alloc(fd, i, string, w);
         if (string == NULL)
-            return 84;
+            return NULL;
         i = 0;
     }
     for (int tmp = cmp; string[tmp] != 0 && string[tmp] != '\n'; tmp++, x++);
