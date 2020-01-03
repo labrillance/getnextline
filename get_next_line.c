@@ -48,6 +48,8 @@ char *first_alloc(int fd, int i, char *string, int w)
         if (!malloc)
             return NULL;
         i = read(fd, buff, i);
+        if (i == -1)
+            return NULL;
         buff[i] = 0;
         string = realloca(string, buff, w);
         if (READ_SIZE - i > 0)
