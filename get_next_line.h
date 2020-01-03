@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#ifndef GET_NEXT_LINE_
+#ifndef READ_SIZE
 
 #define READ_SIZE (5)
 
