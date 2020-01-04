@@ -10,11 +10,11 @@
 
 #ifndef READ_SIZE
 
-#define READ_SIZE (5)
+#define READ_SIZE (1)
 
 #endif
 
 char *realloca(char *str, char *buff, int nb);
-char *first_alloc(int fd, int i, char *string, int w);
+char *first_alloc(int fd, int *i, char *string, int *w);
 char *get_next_line(int fd);
 int my_strlen(char *a);
