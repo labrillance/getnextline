@@ -12,8 +12,8 @@
 
 int my_strlen(char *a)
 {
-       int i = 0;
-    
+    int i = 0;
+
     while (a[i] != 0)
         i++;
     return i;
@@ -60,32 +60,38 @@ char *first_alloc(int fd, int i, char *string, int w)
     return string;
 }
 
+char *newline(char *string, int *cmp, char *buff)
+{
+    int x = 0;
+
+    for (int tmp = (*cmp); string[tmp] != 0 && string[tmp] != '\n'; tmp++, x++);
+    buff = malloc(sizeof(char) * x + 1);
+    for (int y = 0; string[*cmp] != '\n' && string[*cmp] != 0; y++, (*cmp)++) {
+        buff[y] = string[*cmp];
+    }
+    buff[x] = '\0';
+    if (string[*cmp] == 0 && buff[0] == 0 )
+        return NULL;
+    if (string[*cmp] != 0)
+        (*cmp)++;
+    return buff;
+}
+
 char *get_next_line(int fd)
 {
     static int i = READ_SIZE;
     static int w = 1;
     static int cmp = 0;
     static char *string = NULL;
-    int x = 0;
     char *buff = NULL;
 
     if (fd == -1)
         return NULL;
     if (i != 0) {
-        string = first_alloc(fd, i, string, w);
+        string = first_alloc(fd, &i, string, &w);
         if (string == NULL)
             return NULL;
-        i = 0;
     }
-    for (int tmp = cmp; string[tmp] != 0 && string[tmp] != '\n'; tmp++, x++);
-    buff = malloc(sizeof(char) * x + 1);
-    for (int y = 0; string[cmp] != '\n' && string[cmp] != 0; y++, cmp++) {
-        buff[y] = string[cmp];
-    }
-    buff[x] = '\0';
-    if (string[cmp] == 0 && my_strlen(buff) == 0 )
-        return NULL;
-    if (string[cmp] != 0)
-        cmp++;
+    buff = newline(string, &cmp, buff);
     return buff;
 }
