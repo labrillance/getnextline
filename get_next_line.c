@@ -10,6 +10,18 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+<<<<<<< HEAD
+=======
+int my_strlen(char *a)
+{
+    int i = 0;
+
+    while (a[i] != 0)
+        i++;
+    return i;
+}
+
+>>>>>>> be66a658d6022975425eef65b1e525b0d2867b43
 char *realloca(char *str, char *buff, int nb)
 {
     char *tmp = NULL;
@@ -94,7 +106,11 @@ char *get_next_line(int fd)
 
     if (fd == -1)
         return NULL;
+<<<<<<< HEAD
     if (i != 0 && (check_n(string, cmp) == 0)) {
+=======
+    if (i != 0) {
+>>>>>>> be66a658d6022975425eef65b1e525b0d2867b43
         string = first_alloc(fd, &i, string, &w);
         if (string == NULL)
             return NULL;
